@@ -2,7 +2,7 @@ package all;
 import java.awt.*;
 import java.awt.event.*;
 
-public class RetirementGUI extends Frame implements ActionListener, WindowListener {
+public class RetirementGUI extends Frame implements ActionListener {
     Panel investmentTaker;
     Checkbox age18_35;
     Checkbox age36_60;
@@ -96,6 +96,13 @@ public class RetirementGUI extends Frame implements ActionListener, WindowListen
         submitInvestmentInfo.setBounds(270, 450, 200, 50);
         submitInvestmentInfo.setFont(new Font("Futura", Font.BOLD, 25));
 
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                Frame Re= (Frame)e.getSource();
+                Re.dispose();
+            }
+        });
         this.add(header, BorderLayout.NORTH);
         header.add(appName);
 
@@ -123,49 +130,5 @@ public class RetirementGUI extends Frame implements ActionListener, WindowListen
     @Override
     public void actionPerformed(ActionEvent e) {
         // Handle your actions here
-    }
-
-    public static void main(String[] args) {
-        RetirementGUI gui = new RetirementGUI();
-        gui.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent windowEvent) {
-                System.exit(0);
-            }
-        });
-    }
-
-    @Override
-    public void windowOpened(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowClosing(WindowEvent e) {
-        System.exit(0);
-    }
-
-    @Override
-    public void windowClosed(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowIconified(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowDeiconified(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowActivated(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent e) {
-
     }
 }

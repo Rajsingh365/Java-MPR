@@ -2,7 +2,7 @@ package all;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GUI extends Frame implements WindowListener, ActionListener{
+public class GUI extends Frame implements ActionListener{
     TextField incomeText;
     TextField LuxuriesText;
     TextField rentText;
@@ -14,6 +14,7 @@ public class GUI extends Frame implements WindowListener, ActionListener{
     Checkbox retirementPlans;
     Checkbox regularPlans;
     Button submitInvestmentCategory;
+    Panel incomeTaker;
     GUI() {
         setTitle("BudgetSim");
 
@@ -27,9 +28,10 @@ public class GUI extends Frame implements WindowListener, ActionListener{
         appName.setForeground(Color.BLACK); // Set the text color to black
         appName.setFont(new Font("Proxima Nova", Font.BOLD, 30));
 
-        Panel incomeTaker = new Panel();
+        incomeTaker = new Panel();
         incomeTaker.setLayout(null);
         incomeTaker.setBackground(new Color(0x123456));
+
 
         Label income = new Label("Income: ");
         Label Luxuries = new Label("Luxuries: ");
@@ -38,7 +40,7 @@ public class GUI extends Frame implements WindowListener, ActionListener{
         Label utilities = new Label("Utilities: ");
         Label buffer = new Label("Buffer: ");
 
-        income.setForeground(Color.WHITE);
+        income.setForeground(Color.BLACK);
         Luxuries.setForeground(Color.WHITE);
         rent.setForeground(Color.WHITE);
         tax.setForeground(Color.WHITE);
@@ -74,7 +76,8 @@ public class GUI extends Frame implements WindowListener, ActionListener{
         plansGroup = new CheckboxGroup();
         regularPlans = new Checkbox("Regular Plan", plansGroup, false);
         retirementPlans = new Checkbox("Retirement Plan", plansGroup, false);
-
+        regularPlans.setVisible(false);
+        retirementPlans.setVisible(false);
         regularPlans.setFont(new Font("Roboto", Font.BOLD, 20));
         retirementPlans.setFont(new Font("Roboto", Font.BOLD, 20));
         regularPlans.setBounds(150, 400, 150, 30);
@@ -84,9 +87,18 @@ public class GUI extends Frame implements WindowListener, ActionListener{
         submitInvestmentCategory.addActionListener(this);
         submitInvestmentCategory.setBounds(250, 450, 200, 50);
         submitInvestmentCategory.setFont(new Font("Futura", Font.BOLD, 25));
+        submitInvestmentCategory.setVisible(false);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                Frame frame=(Frame)e.getSource();
+                frame.dispose();
+            }
+        });
 
+        this.add(header, BorderLayout.NORTH);
         header.add(appName);
-        add(header, BorderLayout.NORTH);
+        this.add(incomeTaker, BorderLayout.CENTER);
 
         incomeTaker.add(income);
         incomeTaker.add(Luxuries);
@@ -106,7 +118,6 @@ public class GUI extends Frame implements WindowListener, ActionListener{
         incomeTaker.add(retirementPlans);
         incomeTaker.add(submitInvestmentCategory);
 
-        add(incomeTaker, BorderLayout.CENTER);
         setSize(700, 800);
         setVisible(true);
     }
@@ -115,7 +126,9 @@ public class GUI extends Frame implements WindowListener, ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submitIncomeInfo) {
             submitIncomeInfo.setEnabled(false);
-            // Handle your logic for submitting income information
+            submitInvestmentCategory.setVisible(true);
+            regularPlans.setVisible(true);
+            retirementPlans.setVisible(true);
         } else if (e.getSource() == submitInvestmentCategory) {
             if (plansGroup.getSelectedCheckbox() == regularPlans) {
                 this.dispose();
@@ -128,47 +141,8 @@ public class GUI extends Frame implements WindowListener, ActionListener{
     }
 
     public static void main(String[] args) {
-        GUI gui = new GUI();
-        gui.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent windowEvent) {
-
-                System.exit(0);
-            }
-        });
+        new GUI();
     }
 
-    @Override
-    public void windowOpened(WindowEvent e) {
 
-    }
-
-    @Override
-    public void windowClosing(WindowEvent e) {
-            System.exit(0);
-    }
-
-    @Override
-    public void windowClosed(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowIconified(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowDeiconified(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowActivated(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent e) {
-
-    }
 }

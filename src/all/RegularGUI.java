@@ -2,7 +2,7 @@ package all;
 import java.awt.*;
 import java.awt.event.*;
 
-public class RegularGUI extends Frame implements ActionListener,WindowListener {
+public class RegularGUI extends Frame implements ActionListener{
     Panel investmentTaker;
     Checkbox age18_35;
     Checkbox age36_60;
@@ -82,6 +82,13 @@ public class RegularGUI extends Frame implements ActionListener,WindowListener {
         submitInvestmentInfo.setEnabled(false);
         submitInvestmentInfo.setFont(new Font("Futura", Font.BOLD, 25));
 
+             addWindowListener(new WindowAdapter() {
+                 @Override
+                 public void windowClosing(WindowEvent e) {
+                     Frame rg=(Frame)e.getSource();
+                     rg.dispose();
+                 }
+             });
         this.add(header, BorderLayout.NORTH);
         header.add(appName);
 
@@ -137,38 +144,5 @@ public class RegularGUI extends Frame implements ActionListener,WindowListener {
         messageFrame.setVisible(true);
     }
 
-    @Override
-    public void windowOpened(WindowEvent e) {
 
-    }
-
-    @Override
-    public void windowClosing(WindowEvent e) {
-        System.exit(0);
-    }
-
-    @Override
-    public void windowClosed(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowIconified(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowDeiconified(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowActivated(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent e) {
-
-    }
 }
