@@ -6,6 +6,18 @@ public class RegularPlan {
     static private double Bonds;
     static private int years;
 
+    static public double Equity (){
+        return RegularPlan.getEquity()*RegularPlan.save()*(1)/100;
+    }
+    static public double Gold () {
+        return (RegularPlan.getGold()*RegularPlan.save())*(1)/100;
+    }
+    static public double Bond (){
+        return (RegularPlan.getBonds()*RegularPlan.save())*(1)/100;
+    }
+    static public double Total(){
+        return emergency()+Equity()+Gold()+Bond();
+    }
     public RegularPlan(double equity,double gold1,double bonds1){
         RegularPlan.Equity=equity;
         RegularPlan.Gold=gold1;
@@ -56,7 +68,7 @@ public class RegularPlan {
         for (int i = 0; i < years; i++) {
             stockResult += stockResult * stockRange;
         }
-        return stockResult;
+        return -stockResult;
     }
     static public double BondReturn()
     {
@@ -64,13 +76,13 @@ public class RegularPlan {
         for (int i = 0; i < years; i++) {
             bondresults += (bondresults * 0.078);
         }
-        return bondresults;
+        return -bondresults;
     }
     static public double GoldReturn(){
         double goldresults=(Gold*save())/100;
         for (int i = 0; i < years; i++) {
             goldresults += (goldresults * goldRange);
         }
-        return goldresults;
+        return -goldresults;
     }
 }

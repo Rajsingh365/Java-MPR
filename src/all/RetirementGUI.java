@@ -136,6 +136,14 @@ public class RetirementGUI extends Frame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==submitAge){
             submitInvestmentInfo.setEnabled(true);
+            if (age18_35.getState()) {
+                showMessage("Retirement plan 18-35(age) : Stocks-  50-60% Mutual funds- 20-30% Gold-  5-10% Bonds- 5-10% Saving account- 5-10%");
+
+            } else if (age36_60.getState()) {
+                showMessage("Retirement plan 36-60(age) : Stocks-  40-50% Mutual funds- 30-40% Gold-  5-10% Bonds- 10-20% Saving account- 5-10%");
+            } else if (age61_80.getState()) {
+                showMessage("Retirement plan 61-80(age) : Stocks-  30-40% Mutual funds- 40-50% Gold-  5-10% Bonds- 20-30% Saving account- 10-15%");
+            }
         }
         else if(e.getSource()==submitInvestmentInfo){
             new RetirementPlan(Double.parseDouble(stockRangePercentageText.getText()),
@@ -145,5 +153,20 @@ public class RetirementGUI extends Frame implements ActionListener {
                     Double.parseDouble(savingRangePercentageText.getText()));
             new RetirementOutput();
         }
+    }
+    private void showMessage(String message) {
+        Frame messageFrame = new Frame("Message");
+        messageFrame.setSize(400, 200);
+        messageFrame.setLayout(new FlowLayout());
+        Label label = new Label(message);
+        Button okButton = new Button("OK");
+        okButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                messageFrame.dispose();
+            }
+        });
+        messageFrame.add(label);
+        messageFrame.add(okButton);
+        messageFrame.setVisible(true);
     }
 }

@@ -59,12 +59,12 @@ public class RetirementOutput extends Frame {
         output.add(savingAccount);
         output.add(total);
 
-        Label stockText = new Label(String.valueOf(RetirementPlan.getStockRange()));
-        Label mutualFundsText = new Label(String.valueOf(RetirementPlan.getMutualRange()));
-        Label goldText = new Label(String.valueOf(RetirementPlan.getGoldRange()));
-        Label bondsText = new Label(String.valueOf(RetirementPlan.getBondRange()));
-        Label savingAccountText = new Label((String.valueOf(RetirementPlan.getSavingRange())));
-        Label totalText = new Label(String.valueOf(RetirementPlan.getTotal()));
+        Label stockText = new Label("₹"+String.valueOf(RetirementPlan.getStockRange()));
+        Label mutualFundsText = new Label("₹"+String.valueOf(RetirementPlan.getMutualRange()));
+        Label goldText = new Label("₹"+String.valueOf(RetirementPlan.getGoldRange()));
+        Label bondsText = new Label("₹"+String.valueOf(RetirementPlan.getBondRange()));
+        Label savingAccountText = new Label("₹"+(String.valueOf(RetirementPlan.getSavingRange())));
+        Label totalText = new Label("₹"+String.valueOf(RetirementPlan.getTotal()));
 
         stockText.setFont(new Font("Copperplate", Font.BOLD, 20));
         mutualFundsText.setFont(new Font("Copperplate", Font.BOLD, 20));

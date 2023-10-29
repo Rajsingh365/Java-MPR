@@ -115,16 +115,18 @@ public class RegularGUI extends Frame implements ActionListener{
             submitAge.setEnabled(false);
             submitInvestmentInfo.setEnabled(true);
             if (age18_35.getState()) {
-                showMessage("Regular plan for age group 18-35:\nEquity-  50-60%\nGold-  20-25%\nBonds- 10-15%");
+                showMessage("        Regular plan 18-35(age): Equity-  50-60% Gold-  20-25 Bonds- 10-15%");
+
             } else if (age36_60.getState()) {
-                showMessage("Regular plan for age group 36-60:\nEquity-  40-50%\nGold-  40-50%\nBonds- 10-20%");
+                showMessage("        Regular plan 36-60(age): Equity-  40-50% Gold-  40-50% Bonds- 10-20%");
             } else if (age61_80.getState()) {
-                showMessage("Regular plan for age group 61-80:\nEquity-  30-40%\nGold-  50-55%\nBonds- 5-10%");
+                showMessage("        Regular plan 61-80(age): Equity-  30-40% Gold-  50-55% Bonds- 5-10%");
             }
         }
 
         if (e.getSource() == submitInvestmentInfo) {
-            // Handle your investment logic here
+            new RegularPlan(Double.parseDouble(equityRangePercentageText.getText()),Double.parseDouble(goldRangePercentageText.getText()),Double.parseDouble(bondRangePercentageText.getText()));
+            new RegularOutput();
         }
     }
 
