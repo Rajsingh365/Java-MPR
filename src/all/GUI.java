@@ -1,8 +1,10 @@
 package all;
+
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.*;
 
-public class GUI extends Frame implements ActionListener{
+public class GUI extends Frame implements ActionListener {
     TextField incomeText;
     TextField LuxuriesText;
     TextField rentText;
@@ -15,6 +17,7 @@ public class GUI extends Frame implements ActionListener{
     Checkbox regularPlans;
     Button submitInvestmentCategory;
     Panel incomeTaker;
+
     GUI() {
         setTitle("BudgetSim");
 
@@ -31,7 +34,7 @@ public class GUI extends Frame implements ActionListener{
         incomeTaker = new Panel();
         incomeTaker.setLayout(null);
         incomeTaker.setBackground(new Color(0x123456));
-
+//        incomeTaker.setOpaque(false); // Make the panel transparent
 
         Label income = new Label("Income: ");
         Label Luxuries = new Label("Luxuries: ");
@@ -40,12 +43,12 @@ public class GUI extends Frame implements ActionListener{
         Label utilities = new Label("Utilities: ");
         Label buffer = new Label("Buffer: ");
 
-        income.setForeground(Color.BLACK);
-        Luxuries.setForeground(Color.WHITE);
-        rent.setForeground(Color.WHITE);
-        tax.setForeground(Color.WHITE);
-        utilities.setForeground(Color.WHITE);
-        buffer.setForeground(Color.WHITE);
+        income.setBounds(20, 0, 100, 50);
+        Luxuries.setBounds(20, 50, 100, 50);
+        rent.setBounds(20, 100, 100, 50);
+        tax.setBounds(20, 150, 100, 50);
+        utilities.setBounds(20, 200, 100, 50);
+        buffer.setBounds(20, 250, 100, 50);
 
         income.setFont(new Font("Copperplate", Font.BOLD, 20));
         Luxuries.setFont(new Font("Copperplate", Font.BOLD, 20));
@@ -53,6 +56,20 @@ public class GUI extends Frame implements ActionListener{
         rent.setFont(new Font("Copperplate", Font.BOLD, 20));
         tax.setFont(new Font("Copperplate", Font.BOLD, 20));
         buffer.setFont(new Font("Copperplate", Font.BOLD, 20));
+
+        income.setForeground(Color.WHITE);
+        Luxuries.setForeground(Color.WHITE);
+        rent.setForeground(Color.WHITE);
+        tax.setForeground(Color.WHITE);
+        utilities.setForeground(Color.WHITE);
+        buffer.setForeground(Color.WHITE);
+
+        incomeTaker.add(income);
+        incomeTaker.add(Luxuries);
+        incomeTaker.add(utilities);
+        incomeTaker.add(rent);
+        incomeTaker.add(tax);
+        incomeTaker.add(buffer);
 
         incomeText = new TextField();
         LuxuriesText = new TextField();
@@ -83,15 +100,19 @@ public class GUI extends Frame implements ActionListener{
         regularPlans.setBounds(150, 400, 150, 30);
         retirementPlans.setBounds(310, 400, 188, 30);
 
-       submitInvestmentCategory = new Button("Submit");
+        submitInvestmentCategory = new Button("Submit");
         submitInvestmentCategory.addActionListener(this);
         submitInvestmentCategory.setBounds(250, 450, 200, 50);
         submitInvestmentCategory.setFont(new Font("Futura", Font.BOLD, 25));
         submitInvestmentCategory.setVisible(false);
+
         addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e) {
-                Frame frame=(Frame)e.getSource();
+
+
+            public void windowClosing(WindowEvent e)
+            {
+                Frame frame = (Frame) e.getSource();
                 frame.dispose();
             }
         });
@@ -99,13 +120,6 @@ public class GUI extends Frame implements ActionListener{
         this.add(header, BorderLayout.NORTH);
         header.add(appName);
         this.add(incomeTaker, BorderLayout.CENTER);
-
-        incomeTaker.add(income);
-        incomeTaker.add(Luxuries);
-        incomeTaker.add(utilities);
-        incomeTaker.add(rent);
-        incomeTaker.add(tax);
-        incomeTaker.add(buffer);
 
         incomeTaker.add(incomeText);
         incomeTaker.add(LuxuriesText);
@@ -126,6 +140,11 @@ public class GUI extends Frame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submitIncomeInfo) {
             submitIncomeInfo.setEnabled(false);
+            new Budget(Double.parseDouble(rentText.getText()),
+                    Double.parseDouble(taxText.getText()),
+                    Double.parseDouble(utilitiesText.getText()),
+                    Double.parseDouble(LuxuriesText.getText()),
+                    Double.parseDouble(bufferText.getText()));
             submitInvestmentCategory.setVisible(true);
             regularPlans.setVisible(true);
             retirementPlans.setVisible(true);
@@ -139,10 +158,4 @@ public class GUI extends Frame implements ActionListener{
             }
         }
     }
-
-    public static void main(String[] args) {
-        new GUI();
-    }
-
-
 }

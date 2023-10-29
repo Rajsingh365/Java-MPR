@@ -52,15 +52,15 @@ public class RetirementPlan {
 
         System.out.println(" gold: ");
         double goldPercentage = goldRangePercentage;
-        RetirementPlan.goldRange = 0.07 * ((goldPercentage / 100) * amount);
+        RetirementPlan.goldRange = -0.07 * ((goldPercentage / 100) * amount);
 
         System.out.println("bonds: ");
         double bondsPercentage = bondRangePercentage;
-        RetirementPlan.bondRange = 0.089 * ((bondsPercentage / 100) * amount);
+        RetirementPlan.bondRange = -0.089 * ((bondsPercentage / 100) * amount);
 
         System.out.println("saving accounts: ");
         double savingAccountsPercentage = savingRangePercentage;
-        RetirementPlan.savingRange = 0.04 * ((savingAccountsPercentage / 100) * amount);
+        RetirementPlan.savingRange = -0.04 * ((savingAccountsPercentage / 100) * amount);
 
         RetirementPlan.setTotal( stockRange + mutualRange + goldRange + bondRange + savingRange);
         RetirementPlan.setAmount(Budget.surplus());

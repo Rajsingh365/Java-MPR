@@ -17,7 +17,7 @@ public class RetirementGUI extends Frame implements ActionListener {
 
     public RetirementGUI() {
         setTitle("BudgetSim");
-        setSize(700, 600);
+
         setLayout(new BorderLayout());
 
         Panel header = new Panel();
@@ -27,6 +27,7 @@ public class RetirementGUI extends Frame implements ActionListener {
         Label appName = new Label("BudgetSim");
         appName.setForeground(Color.BLACK);
         appName.setFont(new Font("Proxima Nova", Font.BOLD, 30));
+        header.add(appName);
 
         investmentTaker = new Panel();
         investmentTaker.setLayout(null);
@@ -36,6 +37,7 @@ public class RetirementGUI extends Frame implements ActionListener {
         ageRange.setFont(new Font("Proxima Nova", Font.BOLD, 20));
         ageRange.setForeground(Color.WHITE);
         ageRange.setBounds(60, 60, 150, 30);
+        investmentTaker.add(ageRange);
 
         CheckboxGroup plans = new CheckboxGroup();
         age18_35 = new Checkbox("18-35", plans, false);
@@ -49,10 +51,16 @@ public class RetirementGUI extends Frame implements ActionListener {
         age36_60.setFont(new Font("Roboto", Font.BOLD, 20));
         age61_80.setFont(new Font("Roboto", Font.BOLD, 20));
 
+//        investmentTaker.add(plans);
+        investmentTaker.add(age18_35);
+        investmentTaker.add(age36_60);
+        investmentTaker.add(age61_80);
+
         submitAge = new Button("Submit");
         submitAge.addActionListener(this);
         submitAge.setBounds(270, 100, 200, 50);
         submitAge.setFont(new Font("Futura", Font.BOLD, 25));
+        investmentTaker.add(submitAge);
 
         Label stockRangePercentage = new Label("Stocks (in %): ");
         Label mutualRangePercentage = new Label("MutualFunds (in %): ");
@@ -78,6 +86,12 @@ public class RetirementGUI extends Frame implements ActionListener {
         bondRangePercentage.setBounds(20, 350, 220, 50);
         savingRangePercentage.setBounds(20, 400, 220, 50);
 
+        investmentTaker.add(stockRangePercentage);
+        investmentTaker.add(mutualRangePercentage);
+        investmentTaker.add(goldRangePercentage);
+        investmentTaker.add(bondRangePercentage);
+        investmentTaker.add(savingRangePercentage);
+
         stockRangePercentageText = new TextField("");
         mutualRangePercentageText = new TextField("");
         goldRangePercentageText = new TextField("");
@@ -90,12 +104,19 @@ public class RetirementGUI extends Frame implements ActionListener {
         bondRangePercentageText.setBounds(270, 365, 330, 30);
         savingRangePercentageText.setBounds(270, 415, 330, 30);
 
+        investmentTaker.add(stockRangePercentageText);
+        investmentTaker.add(mutualRangePercentageText);
+        investmentTaker.add(goldRangePercentageText);
+        investmentTaker.add(bondRangePercentageText);
+        investmentTaker.add(savingRangePercentageText);
+
         submitInvestmentInfo = new Button("Submit");
         submitInvestmentInfo.setEnabled(false);
         submitInvestmentInfo.addActionListener(this);
         submitInvestmentInfo.setBounds(270, 450, 200, 50);
         submitInvestmentInfo.setFont(new Font("Futura", Font.BOLD, 25));
 
+        investmentTaker.add(submitInvestmentInfo);
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -103,32 +124,26 @@ public class RetirementGUI extends Frame implements ActionListener {
                 Re.dispose();
             }
         });
+
         this.add(header, BorderLayout.NORTH);
-        header.add(appName);
-
         this.add(investmentTaker, BorderLayout.CENTER);
-        investmentTaker.add(ageRange);
-        investmentTaker.add(age18_35);
-        investmentTaker.add(age36_60);
-        investmentTaker.add(age61_80);
-        investmentTaker.add(submitAge);
-        investmentTaker.add(stockRangePercentage);
-        investmentTaker.add(mutualRangePercentage);
-        investmentTaker.add(goldRangePercentage);
-        investmentTaker.add(bondRangePercentage);
-        investmentTaker.add(savingRangePercentage);
-        investmentTaker.add(stockRangePercentageText);
-        investmentTaker.add(mutualRangePercentageText);
-        investmentTaker.add(goldRangePercentageText);
-        investmentTaker.add(bondRangePercentageText);
-        investmentTaker.add(savingRangePercentageText);
-        investmentTaker.add(submitInvestmentInfo);
 
-        setVisible(true);
+        setSize(700, 600);
+        this.setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Handle your actions here
+        if(e.getSource()==submitAge){
+            submitInvestmentInfo.setEnabled(true);
+        }
+        else if(e.getSource()==submitInvestmentInfo){
+            new RetirementPlan(Double.parseDouble(stockRangePercentageText.getText()),
+                    Double.parseDouble(mutualRangePercentageText.getText()),
+                    Double.parseDouble(goldRangePercentageText.getText()),
+                    Double.parseDouble(bondRangePercentageText.getText()),
+                    Double.parseDouble(savingRangePercentageText.getText()));
+            new RetirementOutput();
+        }
     }
 }
